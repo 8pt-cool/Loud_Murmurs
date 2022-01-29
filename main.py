@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import html
 
-xml_file = open("part.xml", encoding="utf-8")
+xml_file = open("rss.xml", encoding="utf-8")
 html = xml_file.read()
 soup = BeautifulSoup(html,'html.parser')
 for child in soup.descendants:
