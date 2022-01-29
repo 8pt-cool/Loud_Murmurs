@@ -10,6 +10,7 @@ for child in soup.descendants:
     if child.name == 'item':
         filename=(child.title.next.strip()+".mp3").replace(' ','_')
         filename=filename.replace('/','_')
+        filename=filename.replace(':','')
         #print(filename)
         audio_link=child.enclosure['url']
         print(audio_link)
