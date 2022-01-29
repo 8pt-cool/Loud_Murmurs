@@ -1,16 +1,22 @@
-# This is a sample Python script.
+import ssl
+import requests
+from bs4 import BeautifulSoup
+import html
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+xml_file = open("rss.xml", encoding="utf-8")
+html = xml_file.read()
+soup = BeautifulSoup(html,'html.parser')
+for child in soup.descendants:
+    if child.name == 'item':
+        filename=(child.title.next.strip()+".mp3").replace(' ','_')
+        #print(filename)
+        audio_link=child.enclosure['url']
+        print(audio_link)
+        r_audio=requests.get(audio_link)
+        with open(filename, 'wb') as f:
+            f.write(r_audio.content)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+        # for title_child in child.title:
+        #     print(title_child,title_child)
+        #print(child.title)
